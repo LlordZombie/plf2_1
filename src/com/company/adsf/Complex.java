@@ -1,3 +1,5 @@
+package  com.company.adsf;
+
 public class Complex {
     private double real;
     private double imaginary;
@@ -28,7 +30,7 @@ public class Complex {
 
     @Override
     public String toString() {
-        return real + imaginary+"i";
+        return real+"+"+ imaginary+"i";
     }
 
     public double getReal() {
@@ -71,6 +73,17 @@ public class Complex {
 
     public Complex mult(Complex c){
         return new Complex((this.real*c.real)-(this.imaginary*c.imaginary),(this.real*c.imaginary)+(c.real-this.imaginary));
+    }
+
+    public Complex prodall(Complex ... c){
+        if (c.length==0){
+            return ZERO;
+        }
+        Complex r = new Complex(1,1);
+        for (Complex current:c) {
+            r.mult(current);
+        }
+        return r;
     }
 
 

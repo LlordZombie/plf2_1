@@ -1,13 +1,5 @@
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("getClass(0x09024713) = " + getClass(0x09024713));
-        System.out.println("getClass(0xc0a80001) = " + getClass(0xc0a80001));
-        System.out.println("getClass(0xAC100001) = " + getClass(0xAC100001));
-        System.out.println("getClass(0xF0000001) = " + getClass(0xF0000001));
-        System.out.println("getClass(0xE00000FF) = " + getClass(0xE00000FF));
-    }
-
-    public static char getClass(int ip){
+public class BitOp {
+    static char getClass(int ip){
         char netClass= 'A';
         String bin = Integer.toBinaryString(ip);
         if(bin.length()!=32){
@@ -23,5 +15,23 @@ public class Main {
         }
         return netClass;
 
+    }
+    public static int setBitWithShift(int num, int i, int k) {
+        return (num<<k) |(1<<i);
+    }
+    public static int bitwiseSubtract(int a, int b) {
+        return a+~b;
+    }
+
+    public static int countBitFlips(int a, int b) {
+        String diff =Integer.toBinaryString(a^b);
+        return diff.length()-diff.replace("1","").length();
+    }
+
+    static boolean isBroadCastIP(int ip, int suffix){
+        int mask = ~1<<(32-suffix-1);
+        mask = ~(mask);
+        int hostbits = ip &mask;
+        return Integer.toBinaryString(hostbits).equals(Integer.toBinaryString(mask));
     }
 }
